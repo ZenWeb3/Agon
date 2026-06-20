@@ -1,0 +1,22 @@
+{
+  "name": "proof-of-edge",
+  "version": "0.1.0",
+  "description": "Autonomous trading agents that run verifiably on 0G with cryptographically-capped spend, competing on a provable-performance leaderboard.",
+  "type": "module",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.cjs --network galileo",
+    "agent": "node agent/decide.js",
+    "leaderboard": "node leaderboard/read.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "ethers": "^6.13.0",
+    "openai": "^4.67.0",
+    "solc": "^0.8.24"
+  }
+}
