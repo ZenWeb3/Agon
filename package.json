@@ -1,5 +1,5 @@
 {
-  "name": "proof-of-edge",
+  "name": "Agon",
   "version": "0.1.0",
   "description": "Autonomous trading agents that run verifiably on 0G with cryptographically-capped spend, competing on a provable-performance leaderboard.",
   "type": "module",
