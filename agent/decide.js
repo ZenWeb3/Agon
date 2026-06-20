@@ -16,11 +16,11 @@ import "dotenv/config";
 // API key + available models come from https://pc.0g.ai
 const compute = new OpenAI({
   apiKey: process.env.ZG_COMPUTE_API_KEY,
-  baseURL: "https://router-api.0g.ai/v1",
+  baseURL: process.env.ZG_COMPUTE_BASE_URL,
 });
 
 // Set to a model offered on the 0G Compute Router (check pc.0g.ai for the live list).
-const MODEL = process.env.ZG_COMPUTE_MODEL || "llama-3.3-70b-instruct";
+const MODEL = process.env.ZG_COMPUTE_MODEL ;
 
 // --- market snapshot (STUB) ---
 // TODO: replace with a real feed for your chosen market (e.g. an outcome market,

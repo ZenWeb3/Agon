@@ -18,11 +18,20 @@ async function main() {
   const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
   const vault = new ethers.Contract(process.env.VAULT_ADDRESS, abi, provider);
 
-  const trades = await vault.queryFilter("TradeExecuted", 0, "latest");
-  const outcomes = await vault.queryFilter("OutcomeRecorded", 0, "latest");
+  const latest = await provider.getBlockNumber();
+  const startBlock = Math.max(0, latest - 20000); // lookback window
+  const CHUNK = 1000; // RPC caps eth_getLogs at 1000 blocks
 
+  const trades = [];
+  const outcomes = [];
+  for (let from = startBlock; from <= latest; from += CHUNK) {
+    const to = Math.min(from + CHUNK - 1, latest);
+    trades.push(...(await vault.queryFilter("TradeExecuted", from, to)));
+    outcomes.push(...(await vault.queryFilter("OutcomeRecorded", from, to)));
+  }
   const pnlByTrade = new Map();
-  for (const o of outcomes) pnlByTrade.set(o.args.tradeId.toString(), o.args.pnl);
+  for (const o of outcomes)
+    pnlByTrade.set(o.args.tradeId.toString(), o.args.pnl);
 
   // aggregate per agent
   const board = new Map();

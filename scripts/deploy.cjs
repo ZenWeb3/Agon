@@ -4,7 +4,7 @@ const hre = require("hardhat");
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying with:", deployer.address);
-
+console.log("Using RPC:", process.env.RPC_URL || "default (evmrpc-testnet)");
   // Starter policy parameters (testnet 0G has 18 decimals like ETH)
   const agent = process.env.AGENT_ADDRESS || deployer.address;
   const spendCap = hre.ethers.parseEther("0.1");   // max 0.1 0G per window
